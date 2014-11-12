@@ -1,0 +1,8 @@
+﻿<Window x:Class="AquaExplorer.Views.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        Title="{Binding Title}">
+    <ContentControl Content="{Binding}" />
+</Window>

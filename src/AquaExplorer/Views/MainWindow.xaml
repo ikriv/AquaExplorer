@@ -1,0 +1,24 @@
+﻿<Window x:Class="AquaExplorer.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:aqua="clr-namespace:AquaExplorer.Views"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:AquaExplorer.ViewModels"
+        mc:Ignorable="d" 
+        Title="Aqua Explorer" 
+        Height="350" 
+        Width="525" 
+        Background="{StaticResource AquaBackground}"
+        d:DataContext="{d:DesignInstance vm:MainViewModel}">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <DockPanel>
+                <aqua:MainMenu DockPanel.Dock="Right" DataContext="{Binding MainMenu}" />
+                <aqua:LocationBarView DataContext="{Binding LocationBar}" Margin="5,0,0,0" VerticalAlignment="Center" />
+            </DockPanel>
+        </DockPanel>
+        <ContentControl Content="{Binding DownloadBar}" DockPanel.Dock="Bottom" />
+        <ContentControl Content="{Binding CurrentPage}" />
+    </DockPanel>
+</Window>
