@@ -4,11 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:AquaExplorer.ViewModels"
+             xmlns:converters="clr-namespace:IKriv.Windows.Mvvm.Converters;assembly=IKriv.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:DownloadViewModel}">
     <StackPanel Orientation="Vertical" MaxWidth="250" Margin="5">
+        <StackPanel.ContextMenu>
+            <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}" >
+                <MenuItem Header="Cancel" Command="{Binding CancelDownloadCommand}">
+                    <MenuItem.Icon><Image Source="/Images/Cancel.png" /></MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
+        </StackPanel.ContextMenu>
         <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
-        <TextBlock Text="{Binding Status}" />
+        <TextBlock Text="{Binding Status}" Visibility="{Binding ShowErrorLink, Converter={converters:BoolToVisConverter Invert=True}}"/>
+        <TextBlock Visibility="{Binding ShowErrorLink, Converter={converters:BoolToVisConverter}}">
+            <Hyperlink Command="{Binding ShowErrorCommand}"><Run Text="{Binding Status, Mode=OneWay}" /></Hyperlink>
+        </TextBlock>
     </StackPanel>
 </UserControl>

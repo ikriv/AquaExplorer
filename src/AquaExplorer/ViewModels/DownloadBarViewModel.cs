@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using AquaExplorer.BusinessObjects;
@@ -10,10 +11,12 @@ namespace AquaExplorer.ViewModels
     class DownloadBarViewModel : ViewModelBase
     {
         private readonly IDownloadController _controller;
+        private readonly Func<DownloadViewModel> _createDownloadVm;
 
-        public DownloadBarViewModel(IDownloadController controller)
+        public DownloadBarViewModel(IDownloadController controller, Func<DownloadViewModel> createDownloadVm)
         {
             _controller = controller;
+            _createDownloadVm = createDownloadVm;
             Downloads = new ObservableCollection<DownloadViewModel>();
 
             _controller.Downloads.CollectionChanged += (sender, args) => OnDownloadsChanged();
@@ -26,7 +29,7 @@ namespace AquaExplorer.ViewModels
             Downloads =
                 _controller.Downloads
                     .OrderByDescending(d => d.StartTime)
-                    .Select(d => new DownloadViewModel(d))
+                    .Select(d => _createDownloadVm().Init(_controller, d))
                     .ToList();
 
             _downloadsDictionary = Downloads.ToDictionary(d => d.Operation);

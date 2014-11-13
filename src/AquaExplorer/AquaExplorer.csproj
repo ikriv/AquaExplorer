@@ -85,6 +85,7 @@
     <Compile Include="Services\IAzureService.cs" />
     <Compile Include="Services\IDownloadController.cs" />
     <Compile Include="Services\IFileSystem.cs" />
+    <Compile Include="ViewModels\ExceptionViewModel.cs" />
     <Compile Include="ViewModels\Services\IDialog.cs" />
     <Compile Include="ViewModels\Services\IDialogService.cs" />
     <Compile Include="Services\INavigationController.cs" />
@@ -148,6 +149,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ExceptionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LocationBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,6 +186,9 @@
     </Compile>
     <Compile Include="Views\DownloadView.xaml.cs">
       <DependentUpon>DownloadView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExceptionView.xaml.cs">
+      <DependentUpon>ExceptionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LocationBarView.xaml.cs">
       <DependentUpon>LocationBarView.xaml</DependentUpon>
@@ -223,6 +231,9 @@
       <Project>{704aab17-9ab6-47a4-bfcf-e93523c959d9}</Project>
       <Name>IKriv.Azure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cancel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

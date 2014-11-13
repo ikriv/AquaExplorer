@@ -33,7 +33,8 @@ namespace AquaExplorer
                 .RegisterDataTemplate<BlobListViewModel, BlobListView>()
                 .RegisterDataTemplate<DownloadViewModel, DownloadView>()
                 .RegisterDataTemplate<DownloadBarViewModel, DownloadBarView>()
-                .RegisterDataTemplate<AddAccountViewModel, AddAccountView>();
+                .RegisterDataTemplate<AddAccountViewModel, AddAccountView>()
+                .RegisterDataTemplate<ExceptionViewModel, ExceptionView>();
         }
 
         private static ContainerControlledLifetimeManager Singleton()
