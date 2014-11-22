@@ -43,6 +43,7 @@ namespace AquaExplorer.ViewModels
                 _azure.GetContainers(_account.Account)
                 .ToList(token)
                 .Select(container=>new AzureLocation(_account.Account, container))
+                .OrderBy(location=>location.ContainerName)
                 .ToList();
         }
 

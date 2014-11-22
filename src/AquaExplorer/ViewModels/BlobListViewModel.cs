@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Input;
 using AquaExplorer.BusinessObjects;
@@ -38,7 +39,7 @@ namespace AquaExplorer.ViewModels
 
         protected override IEnumerable<Blob> Load(CancellationToken token)
         {
-            return _azure.GetBlobs(_location.Container);
+            return _azure.GetBlobs(_location.Container).OrderBy(blob=>blob.Name).ToList();
         }
 
         private void DownloadBlob()
