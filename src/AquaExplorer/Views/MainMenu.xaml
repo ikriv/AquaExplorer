@@ -8,6 +8,11 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:MainMenuViewModel}">
     <Menu Background="{StaticResource AquaBackground}">
+        <MenuItem Command="{Binding ReloadCommand}" ToolTip="Reload">
+            <MenuItem.Header>
+                <Image Source="/Images/reload.png" Width="13" Height="13" Margin="0,3,0,0"/>
+            </MenuItem.Header>
+        </MenuItem>
         <MenuItem>
             <MenuItem.Header>
                 <TextBlock FontSize="16" FontWeight="Bold">&#x2261;</TextBlock>
