@@ -12,6 +12,7 @@
             ItemsSource="{Binding Accounts}"  
             SelectedItem="{Binding SelectedAccount}"
             DisplayMemberPath="Credentials.Account"
+            MouseDoubleClick="OnMouseDoubleClick"
          />
     </Grid>
 </UserControl>

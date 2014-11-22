@@ -12,6 +12,7 @@
             ItemsSource="{Binding Items}"  
             DisplayMemberPath="Name"
             SelectedItem="{Binding SelectedItem}"
+            MouseDoubleClick="OnMouseDoubleClick"
          />
 
     </Grid>

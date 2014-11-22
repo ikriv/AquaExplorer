@@ -28,9 +28,14 @@ namespace AquaExplorer.ViewModels
         public AzureLocation SelectedItem
         {
             get {  return _selectedItem; }
-            set {  _selectedItem = value; RaisePropertyChanged("SelectedItem"); NavigateToSelectedItem(); }
+            set {  _selectedItem = value; RaisePropertyChanged("SelectedItem"); }
         }
         private AzureLocation _selectedItem;
+
+        public void OnDoubleClick()
+        {
+            NavigateToSelectedItem();
+        }
 
         protected override IEnumerable<AzureLocation> Load(CancellationToken token)
         {

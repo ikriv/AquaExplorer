@@ -28,7 +28,7 @@ namespace AquaExplorer.ViewModels
         public Account SelectedAccount
         {
             get {  return _selectedAccount; }
-            set {  _selectedAccount = value; RaisePropertyChanged("SelectedAccount"); NavigateToSelectedAccount(); }
+            set {  _selectedAccount = value; RaisePropertyChanged("SelectedAccount"); }
         }
         private Account _selectedAccount;
 
@@ -40,6 +40,11 @@ namespace AquaExplorer.ViewModels
         public void BeginStopLoading()
         {
             if (LoadCompleted != null) LoadCompleted(this);
+        }
+
+        public void OnDoubleCLick()
+        {
+            NavigateToSelectedAccount();
         }
 
         public event Action<INavigationTarget> LoadCompleted;
