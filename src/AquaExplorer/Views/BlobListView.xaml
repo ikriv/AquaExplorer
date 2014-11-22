@@ -10,27 +10,28 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:BlobListViewModel}">
     <Grid>
-        <ListView ItemsSource="{Binding Items}" 
-                  SelectedItem="{Binding SelectedBlob}" 
+        <DataGrid ItemsSource="{Binding Items}"
+                  AutoGenerateColumns="False"
+                  SelectedItem="{Binding SelectedBlob}"
+                  GridLinesVisibility="None"
+                  SelectionUnit="FullRow"
                   MouseDoubleClick="OnBlobListDoubleClick">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView AllowsColumnReorder="True">
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" />
-                    <GridViewColumn DisplayMemberBinding="{Binding LastModified, Converter={converters:ToLocalTimeConverter}}" Header="Date" />
-                    <GridViewColumn Header="Size" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate DataType="azure:Blob">
-                                <TextBlock HorizontalAlignment="Right" Text="{Binding ContentLength}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding LastModified, Converter={converters:ToLocalTimeConverter}}"  />
+                <DataGridTextColumn Binding="{Binding ContentLength}" Header="Size">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                 </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
