@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaExplorer", "AquaExplore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKriv.Azure", "IKriv.Azure\IKriv.Azure.csproj", "{704AAB17-9AB6-47A4-BFCF-E93523C959D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{14A43515-2934-4AD7-9B3D-CE18DDF20AEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{704AAB17-9AB6-47A4-BFCF-E93523C959D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{704AAB17-9AB6-47A4-BFCF-E93523C959D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{704AAB17-9AB6-47A4-BFCF-E93523C959D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A43515-2934-4AD7-9B3D-CE18DDF20AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A43515-2934-4AD7-9B3D-CE18DDF20AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A43515-2934-4AD7-9B3D-CE18DDF20AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A43515-2934-4AD7-9B3D-CE18DDF20AEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

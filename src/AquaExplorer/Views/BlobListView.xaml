@@ -15,11 +15,13 @@
                   SelectedItem="{Binding SelectedBlob}"
                   GridLinesVisibility="None"
                   SelectionUnit="FullRow"
+                  IsReadOnly="True"
                   MouseDoubleClick="OnBlobListDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Date" Binding="{Binding LastModified, Converter={converters:ToLocalTimeConverter}}"  />
-                <DataGridTextColumn Binding="{Binding ContentLength}" Header="Size">
+                <DataGridTextColumn Binding="{Binding ContentLength, Converter={converters:SizeAbbreviationConverter}}" 
+                                    Header="Size" SortMemberPath="ContentLength">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                             <Setter Property="HorizontalContentAlignment" Value="Right"/>

@@ -29,7 +29,7 @@ namespace AquaExplorer.ViewModels
             Downloads =
                 _controller.Downloads
                     .OrderByDescending(d => d.StartTime)
-                    .Select(d => _createDownloadVm().Init(_controller, d))
+                    .Select(d => _createDownloadVm().Init(d))
                     .ToList();
 
             _downloadsDictionary = Downloads.ToDictionary(d => d.Operation);

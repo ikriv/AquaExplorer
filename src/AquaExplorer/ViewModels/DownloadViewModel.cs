@@ -11,17 +11,19 @@ namespace AquaExplorer.ViewModels
 {
     class DownloadViewModel : ViewModelBase
     {
-        private IDownloadController _controller;
+        private readonly IDownloadController _controller;
         private readonly IDialogService _dialogs;
+        private readonly SizeAbbreviationService _abbreviationService;
 
-        public DownloadViewModel(IDialogService dialogs)
+        public DownloadViewModel(IDialogService dialogs, IDownloadController controller, SizeAbbreviationService abbreviationService)
         {
             _dialogs = dialogs;
+            _controller = controller;
+            _abbreviationService = abbreviationService;
         }
 
-        public DownloadViewModel Init(IDownloadController controller, DownloadOperation operation)
+        public DownloadViewModel Init(DownloadOperation operation)
         {
-            _controller = controller;
             Operation = operation;
             Name = Path.GetFileName(Operation.LocalPath);
             Status = "Starting...";
@@ -44,7 +46,7 @@ namespace AquaExplorer.ViewModels
 
             if (Operation.IsInProgress)
             {
-                Status = String.Format("{0} of {1} bytes", Operation.DownloadedSize, Operation.TotalSize);
+                Status = _abbreviationService.Abbreviate(Operation.DownloadedSize, Operation.TotalSize);
             }
             else
             {

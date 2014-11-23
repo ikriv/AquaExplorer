@@ -76,6 +76,7 @@
     <Compile Include="BusinessObjects\Configuration.cs" />
     <Compile Include="BusinessObjects\DownloadOperation.cs" />
     <Compile Include="BusinessObjects\ProtectedCredentials.cs" />
+    <Compile Include="Converters\SizeAbbreviationConverter.cs" />
     <Compile Include="Converters\ToLocalTimeConverter.cs" />
     <Compile Include="Services\Authenticator.cs" />
     <Compile Include="Services\AzureService.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Services\IAzureService.cs" />
     <Compile Include="Services\IDownloadController.cs" />
     <Compile Include="Services\IFileSystem.cs" />
+    <Compile Include="Services\SizeAbbreviationService.cs" />
     <Compile Include="ViewModels\ExceptionViewModel.cs" />
     <Compile Include="ViewModels\Services\IDialog.cs" />
     <Compile Include="ViewModels\Services\IDialogService.cs" />
