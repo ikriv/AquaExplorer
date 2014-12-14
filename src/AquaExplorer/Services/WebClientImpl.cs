@@ -52,6 +52,7 @@ namespace AquaExplorer.Services
                 var httpRequest = request as HttpWebRequest;
                 if (httpRequest != null && Authenticator != null)
                 {
+                    httpRequest.ServicePoint.ConnectionLimit = 100;
                     Authenticator.Authenticate(httpRequest);
                 }
                 return request;
