@@ -58,7 +58,8 @@ namespace AquaExplorer
                 .RegisterType<IWebClient, WebClientImpl>() // NOT singleton!
                 .RegisterType<IDownloadController, DownloadController>(Singleton())
                 .RegisterType<IDialogService, DialogService>()
-                .RegisterType<IWindow, WindowWrapper>();
+                .RegisterType<IWindow, WindowWrapper>()
+                .RegisterType<IFileDialogService, FileDialogService>();
 
             return container;
         }

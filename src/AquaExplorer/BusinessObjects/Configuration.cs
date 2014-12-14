@@ -5,5 +5,6 @@ namespace AquaExplorer.BusinessObjects
     public class Configuration
     {
         public List<ProtectedCredentials> Accounts { get; set; }
+        public string DownloadFolder { get; set; }
     }
 }

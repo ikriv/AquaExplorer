@@ -65,7 +65,11 @@ namespace AquaExplorer.Services
                 var serializer = new XmlSerializer(typeof (Configuration));
                 serializer.Serialize(writer, config, ns);
             }
+
+            if (ConfigurationChanged != null) ConfigurationChanged(config);
         }
+
+        public event Action<Configuration> ConfigurationChanged;
 
 
         private string GetConfigFilePath()

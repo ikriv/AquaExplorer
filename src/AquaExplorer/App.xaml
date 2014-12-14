@@ -5,6 +5,7 @@
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
         <SolidColorBrush x:Key="AquaBackground" Color="#BBFFFF" />
         <SolidColorBrush x:Key="DarkAquaBackground" Color="#99EEEE" />
+        <SolidColorBrush x:Key="LightAquaBackground" Color="#CCFFFF" />
         <LinearGradientBrush x:Key="AquaHeaderBackground" StartPoint="0,0" EndPoint="0,1">
             <GradientStop Offset="0" Color="#99FFFF" />
             <GradientStop Offset="1" Color="#BBFFFF" />

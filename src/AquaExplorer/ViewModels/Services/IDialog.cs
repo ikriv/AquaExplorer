@@ -2,7 +2,7 @@
 
 namespace AquaExplorer.ViewModels.Services
 {
-    interface IDialog<T> where T : ViewModelBase
+    interface IDialog<out T> where T : ViewModelBase
     {
         T ViewModel { get; }
         bool? DialogResult { get; }

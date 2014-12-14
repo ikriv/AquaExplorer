@@ -20,7 +20,9 @@ namespace AquaExplorer.Services
                                   IScheduler scheduler, 
                                   Func<IWebClient> webClientFactory, 
                                   IAzureService azure,
-                                  IFileSystem fileSystem)
+                                  IFileSystem fileSystem,
+                                  IConfigurationService configService
+                                 )
         {
             _time = time;
             _scheduler = scheduler;
@@ -29,8 +31,8 @@ namespace AquaExplorer.Services
             _fileSystem = fileSystem;
 
             Downloads = new ObservableCollection<DownloadOperation>();
-            var myDocuments = _fileSystem.GetMyDocumentsFolder();
-            DownloadFolder = Path.Combine(myDocuments, "Azure");
+            configService.ConfigurationChanged += ApplyConfiguration;
+            ApplyConfiguration(configService.ReadConfiguration());
         }
 
         public ObservableCollection<DownloadOperation> Downloads { get; private set; }
@@ -69,7 +71,17 @@ namespace AquaExplorer.Services
 
         public DownloadOperation BeginDownload(Blob blob)
         {
-            _fileSystem.CreateDirectory(DownloadFolder);
+            // if download folder does not exist, create it
+            if (!_fileSystem.DirectoryExists(DownloadFolder))
+            {
+                _fileSystem.CreateDirectory(DownloadFolder);
+            }
+
+            // if download folder still does not exist, bail
+            if (!_fileSystem.DirectoryExists(DownloadFolder))
+            {
+                throw new ApplicationException("Download folder does not exist: " + DownloadFolder);
+            }
 
             var currentTime = _time.GetUtcNow();
             var uri = new Uri(blob.Url);
@@ -134,6 +146,17 @@ namespace AquaExplorer.Services
             if (result == "") result = "root";
 
             return result;
+        }
+
+        private void ApplyConfiguration(Configuration config)
+        {
+            DownloadFolder = config.DownloadFolder ?? GetDefaultDownloadFolder();
+        }
+
+        private string GetDefaultDownloadFolder()
+        {
+            var myDocuments = _fileSystem.GetMyDocumentsFolder();
+            return Path.Combine(myDocuments, "Azure");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AquaExplorer.BusinessObjects;
+﻿using System;
+using AquaExplorer.BusinessObjects;
 
 namespace AquaExplorer.Services
 {
@@ -6,5 +7,6 @@ namespace AquaExplorer.Services
     {
         Configuration ReadConfiguration();
         void WriteConfiguration(Configuration config);
+        event Action<Configuration> ConfigurationChanged;
     }
 }

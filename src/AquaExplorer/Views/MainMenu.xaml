@@ -17,7 +17,8 @@
             <MenuItem.Header>
                 <TextBlock FontSize="16" FontWeight="Bold">&#x2261;</TextBlock>
             </MenuItem.Header>
-            <MenuItem Header="Add Account" Command="{Binding AddAccountCommand}" />
+            <MenuItem Background="{StaticResource LightAquaBackground}"  Header="Add Account" Command="{Binding AddAccountCommand}" />
+            <MenuItem Background="{StaticResource LightAquaBackground}"  Header="Set Download Folder" Command="{Binding SetDownloadFolderCommand}" />
         </MenuItem>
     </Menu>
 </UserControl>
