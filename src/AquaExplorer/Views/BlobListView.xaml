@@ -16,7 +16,13 @@
                   GridLinesVisibility="None"
                   SelectionUnit="FullRow"
                   IsReadOnly="True"
+                  Background="{StaticResource AquaBackground}"
                   MouseDoubleClick="OnBlobListDoubleClick">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{StaticResource AquaBackground}" />
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Date" Binding="{Binding LastModified, Converter={converters:ToLocalTimeConverter}}"  />
