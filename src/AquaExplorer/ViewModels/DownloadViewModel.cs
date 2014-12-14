@@ -26,9 +26,9 @@ namespace AquaExplorer.ViewModels
         {
             Operation = operation;
             Name = Path.GetFileName(Operation.LocalPath);
-            Status = "Starting...";
             CancelDownloadCommand = new DelegateCommand(CancelDownload);
             ShowErrorCommand = new DelegateCommand(ShowError);
+            Update();
             return this;
         }
 
@@ -46,7 +46,14 @@ namespace AquaExplorer.ViewModels
 
             if (Operation.IsInProgress)
             {
-                Status = _abbreviationService.Abbreviate(Operation.DownloadedSize, Operation.TotalSize);
+                if (Operation.DownloadedSize == 0)
+                {
+                    Status = "Starting...";
+                }
+                else
+                {
+                    Status = _abbreviationService.Abbreviate(Operation.DownloadedSize, Operation.TotalSize);    
+                }
             }
             else
             {
