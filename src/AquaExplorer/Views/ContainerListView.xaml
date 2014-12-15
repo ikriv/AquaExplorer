@@ -4,16 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:AquaExplorer.ViewModels"
+             xmlns:views="clr-namespace:AquaExplorer.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:ContainerListViewModel}">
-    <Grid>
+    <views:AsyncView>
         <ListBox 
             ItemsSource="{Binding Items}"  
             DisplayMemberPath="Name"
             SelectedItem="{Binding SelectedItem}"
             MouseDoubleClick="OnMouseDoubleClick"
-         />
-
-    </Grid>
+            />
+    </views:AsyncView>
 </UserControl>

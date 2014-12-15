@@ -32,11 +32,20 @@ namespace AquaExplorer.ViewModels
         }
         private Exception _error;
 
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { _isBusy = value; RaisePropertyChanged("IsBusy"); }
+        }
+        private bool _isBusy;
+
         public void BeginLoad()
         {
             if (_loadingTask != null) throw new ApplicationException("Already loading"); /*!*/
 
             _tokenSource = new CancellationTokenSource();
+
+            IsBusy = true;
 
             _loadingTask = Task.Factory.StartNew(()=>Load(_tokenSource.Token))
                 .OnSuccess(items => Items = items)
@@ -61,7 +70,11 @@ namespace AquaExplorer.ViewModels
 
         private void OnLoadCompleted()
         {
-            lock (_sync) _loadCompleted = true;
+            lock (_sync) 
+            { 
+                _loadCompleted = true;
+                IsBusy = false;
+            } 
             if (LoadCompleted != null) LoadCompleted(this);
         }
 

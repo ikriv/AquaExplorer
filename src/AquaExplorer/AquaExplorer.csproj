@@ -82,6 +82,10 @@
     <Compile Include="BusinessObjects\Configuration.cs" />
     <Compile Include="BusinessObjects\DownloadOperation.cs" />
     <Compile Include="BusinessObjects\ProtectedCredentials.cs" />
+    <Compile Include="Controls\LoadingAnimation.xaml.cs">
+      <DependentUpon>LoadingAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RadialPanel.cs" />
     <Compile Include="Converters\SizeAbbreviationConverter.cs" />
     <Compile Include="Converters\ToLocalTimeConverter.cs" />
     <Compile Include="Services\Authenticator.cs" />
@@ -131,11 +135,19 @@
     <Compile Include="Views\AccountListView.xaml.cs">
       <DependentUpon>AccountListView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\LoadingAnimation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AccountListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AsyncView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,6 +193,9 @@
     </Compile>
     <Compile Include="Views\AddAccountView.xaml.cs">
       <DependentUpon>AddAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AsyncView.xaml.cs">
+      <DependentUpon>AsyncView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BlobListView.xaml.cs">
       <DependentUpon>BlobListView.xaml</DependentUpon>
