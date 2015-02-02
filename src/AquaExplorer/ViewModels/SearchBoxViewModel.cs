@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using AquaExplorer.ViewModels.Services;
 using IKriv.Windows.Mvvm;
 
@@ -6,6 +7,11 @@ namespace AquaExplorer.ViewModels
 {
     class SearchBoxViewModel : ViewModelBase, ISearchBox
     {
+        public SearchBoxViewModel()
+        {
+            ClearCommand = new DelegateCommand(Clear);    
+        }
+
         private string _searchString = String.Empty;
         public string SearchString
         {
@@ -21,5 +27,7 @@ namespace AquaExplorer.ViewModels
         {
             SearchString = String.Empty;
         }
+
+        public ICommand ClearCommand { get; private set; }
     }
 }

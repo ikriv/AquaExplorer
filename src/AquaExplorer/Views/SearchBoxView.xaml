@@ -10,7 +10,11 @@
     <Border BorderBrush="LightGray" BorderThickness="1" Background="White">
         <StackPanel Orientation="Horizontal">
             <Image Width="16" Height="16" VerticalAlignment="Center" Source="../Images/search_color.png" />
-            <TextBox MinWidth="100" BorderThickness="0" VerticalAlignment="Center" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox MinWidth="100" BorderThickness="0" VerticalAlignment="Center" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Escape" Command="{Binding ClearCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
         </StackPanel>
     </Border>
 </UserControl>
