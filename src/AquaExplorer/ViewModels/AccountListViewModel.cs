@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading;
 using AquaExplorer.BusinessObjects;
 using AquaExplorer.Services;
+using AquaExplorer.ViewModels.Services;
+using Microsoft.Practices.Unity;
 
 namespace AquaExplorer.ViewModels
 {
@@ -17,6 +19,9 @@ namespace AquaExplorer.ViewModels
             _configService = configService;
         }
 
+        [Dependency]
+        public ISearchBox SearchBox { get; set; }
+
         public Account SelectedAccount
         {
             get {  return _selectedAccount; }
@@ -29,11 +34,10 @@ namespace AquaExplorer.ViewModels
             NavigateToSelectedAccount();
         }
 
-        private void NavigateToSelectedAccount()
+        public override void BeginLoad()
         {
-            if (SelectedAccount == null) return;
-            var location = new AzureLocation(SelectedAccount, null);
-            _controller.NavigateTo(location);
+            SearchBox.Clear();
+            base.BeginLoad();
         }
 
         protected override IEnumerable<Account> Load(CancellationToken token)
@@ -44,6 +48,13 @@ namespace AquaExplorer.ViewModels
                 .Select(c => new Account {Credentials = c})
                 .OrderBy(a => a.Credentials.Account)
                 .ToArray();
+        }
+
+        private void NavigateToSelectedAccount()
+        {
+            if (SelectedAccount == null) return;
+            var location = new AzureLocation(SelectedAccount, null);
+            _controller.NavigateTo(location);
         }
     }
 }

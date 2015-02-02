@@ -39,7 +39,7 @@ namespace AquaExplorer.ViewModels
         }
         private bool _isBusy;
 
-        public void BeginLoad()
+        public virtual void BeginLoad()
         {
             if (_loadingTask != null) throw new ApplicationException("Already loading"); /*!*/
 
@@ -53,7 +53,7 @@ namespace AquaExplorer.ViewModels
                 .ContinueWith(t => OnLoadCompleted());
         }
 
-        public void BeginStopLoading()
+        public virtual void BeginStopLoading()
         {
             // we assume that BeginLoad() has been called
 

@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:AquaExplorer.ViewModels"
+             xmlns:controls="clr-namespace:AquaExplorer.Controls"
+             xmlns:converters="clr-namespace:IKriv.Windows.Mvvm.Converters;assembly=IKriv.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:AccountListViewModel}">
@@ -11,8 +13,15 @@
         <ListBox 
             ItemsSource="{Binding Items}"  
             SelectedItem="{Binding SelectedAccount}"
-            DisplayMemberPath="Credentials.Account"
-            MouseDoubleClick="OnMouseDoubleClick"
-         />
+            MouseDoubleClick="OnMouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <controls:TextBlockWithHighlight 
+                        Text="{Binding Credentials.Account}"
+                        HighlightedText="{Binding DataContext.SearchBox.SearchString, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                        Visibility="{Binding HasMatch, RelativeSource={RelativeSource Self}, Converter={converters:BoolToVisConverter}}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>
