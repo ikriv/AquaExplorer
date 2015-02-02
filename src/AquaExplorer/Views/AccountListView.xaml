@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance vm:AccountListViewModel}">
     <Grid>
         <ListBox 
-            ItemsSource="{Binding Accounts}"  
+            ItemsSource="{Binding Items}"  
             SelectedItem="{Binding SelectedAccount}"
             DisplayMemberPath="Credentials.Account"
             MouseDoubleClick="OnMouseDoubleClick"
