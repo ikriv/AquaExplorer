@@ -5,15 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:AquaExplorer.ViewModels"
              xmlns:views="clr-namespace:AquaExplorer.Views"
+             xmlns:controls="clr-namespace:AquaExplorer.Controls"
+             xmlns:converters="clr-namespace:IKriv.Windows.Mvvm.Converters;assembly=IKriv.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:ContainerListViewModel}">
     <views:AsyncView>
         <ListBox 
             ItemsSource="{Binding Items}"  
-            DisplayMemberPath="Name"
             SelectedItem="{Binding SelectedItem}"
-            MouseDoubleClick="OnMouseDoubleClick"
-            />
+            MouseDoubleClick="OnMouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <controls:TextBlockWithHighlight 
+                        Text="{Binding Name}"
+                        HighlightedText="{Binding DataContext.SearchBox.SearchString, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                        Visibility="{Binding HasMatch, RelativeSource={RelativeSource Self}, Converter={converters:BoolToVisConverter}}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </views:AsyncView>
 </UserControl>

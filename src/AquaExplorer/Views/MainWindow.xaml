@@ -12,12 +12,17 @@
         Background="{StaticResource AquaBackground}"
         d:DataContext="{d:DesignInstance vm:MainViewModel}">
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top">
-            <DockPanel>
-                <aqua:MainMenu DockPanel.Dock="Right" DataContext="{Binding MainMenu}" />
-                <aqua:LocationBarView DataContext="{Binding LocationBar}" Margin="5,0,0,0" VerticalAlignment="Center" />
-            </DockPanel>
-        </DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <aqua:LocationBarView DataContext="{Binding LocationBar}" Grid.Column="0" Margin="5,0,0,0" VerticalAlignment="Center" />
+            <aqua:SearchBoxView DataContext="{Binding SearchBox}" Grid.Column="1" HorizontalAlignment="Right" Margin="2" />
+            <aqua:MainMenu Grid.Column="2" DataContext="{Binding MainMenu}" />
+        </Grid>
         <ContentControl Content="{Binding DownloadBar}" DockPanel.Dock="Bottom" />
         <ContentControl Content="{Binding CurrentPage}" />
     </DockPanel>

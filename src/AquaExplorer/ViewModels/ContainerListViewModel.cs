@@ -4,6 +4,8 @@ using System.Threading;
 using AquaExplorer.BusinessObjects;
 using AquaExplorer.Services;
 using AquaExplorer.Util;
+using AquaExplorer.ViewModels.Services;
+using Microsoft.Practices.Unity;
 
 namespace AquaExplorer.ViewModels
 {
@@ -12,6 +14,10 @@ namespace AquaExplorer.ViewModels
         private readonly IAzureService _azure;
         private readonly INavigationController _controller;
         private AzureLocation _account;
+
+        [Dependency]
+        public ISearchBox SearchBox { get; set; }
+
 
         public ContainerListViewModel(IAzureService azure, INavigationController controller)
         {
@@ -22,6 +28,7 @@ namespace AquaExplorer.ViewModels
         public ContainerListViewModel Init(AzureLocation account)
         {
             _account = account;
+            SearchBox.Clear();
             return this;
         }
 

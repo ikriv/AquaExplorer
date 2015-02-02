@@ -1,5 +1,6 @@
 ﻿using AquaExplorer.BusinessObjects;
 using AquaExplorer.Services;
+using AquaExplorer.ViewModels.Services;
 using IKriv.Windows.Mvvm;
 using Microsoft.Practices.Unity;
 
@@ -24,6 +25,9 @@ namespace AquaExplorer.ViewModels
 
         [Dependency]
         public MainMenuViewModel MainMenu { get; set; }
+
+        [Dependency]
+        public ISearchBox SearchBox { get; set; }
 
         public ViewModelBase CurrentPage
         {
