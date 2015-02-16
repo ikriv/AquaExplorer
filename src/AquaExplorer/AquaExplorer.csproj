@@ -99,6 +99,7 @@
     <Compile Include="Services\IFileSystem.cs" />
     <Compile Include="Services\SubstringSearch.cs" />
     <Compile Include="Util\NotifyPropertyChangedExtensions.cs" />
+    <Compile Include="Util\StringHighlighter.cs" />
     <Compile Include="ViewModels\Services\ISearchBox.cs" />
     <Compile Include="Services\SizeAbbreviationService.cs" />
     <Compile Include="ViewModels\ExceptionViewModel.cs" />

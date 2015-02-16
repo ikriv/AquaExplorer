@@ -3,18 +3,46 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Markup;
 using System.Windows.Media;
-using AquaExplorer.Services;
+using AquaExplorer.Util;
 
 namespace AquaExplorer.Controls
 {
-    class TextBlockWithHighlight : TextBlock, INotifyPropertyChanged
+    [ContentProperty("Text")]
+    public class TextBlockWithHighlight : Control, INotifyPropertyChanged
     {
+        private readonly TextBlock _textBlock;
+
+        public TextBlockWithHighlight()
+        {
+            // alignment defaults
+            HorizontalAlignment = HorizontalAlignment.Left;
+            VerticalAlignment = VerticalAlignment.Top;
+
+            _textBlock = new TextBlock();
+
+            AddVisualChild(_textBlock);
+        }
+
         public string HighlightedText
         {
             get { return (string)GetValue(HighlightedTextProperty); }
             set { SetValue(HighlightedTextProperty, value); }
         }
+
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(TextBlockWithHighlight), 
+                new FrameworkPropertyMetadata(String.Empty, FrameworkPropertyMetadataOptions.AffectsRender, ApplyHighlighting));
+
 
         public static readonly DependencyProperty HighlightedTextProperty =
             DependencyProperty.Register("HighlightedText", typeof(string),
@@ -28,7 +56,6 @@ namespace AquaExplorer.Controls
             set { SetValue(HighlightedForegroundProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for HighlightedForeground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HighlightedForegroundProperty =
             DependencyProperty.Register("HighlightedForeground", typeof(Brush), 
             typeof(TextBlockWithHighlight), 
@@ -40,13 +67,10 @@ namespace AquaExplorer.Controls
             set { SetValue(HighlightedBackgroundProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for HighlightedBackground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HighlightedBackgroundProperty =
             DependencyProperty.Register("HighlightedBackground", typeof(Brush), 
             typeof(TextBlockWithHighlight), 
             new FrameworkPropertyMetadata(Brushes.Blue, FrameworkPropertyMetadataOptions.AffectsRender, ApplyHighlighting));
-
-
 
         private bool _hasMatch = true;
         public bool HasMatch
@@ -64,7 +88,30 @@ namespace AquaExplorer.Controls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        
+        protected override int VisualChildrenCount
+        {
+            get { return 1; }
+        }
+
+        protected override Visual GetVisualChild(int index)
+        {
+            if (index == 0) return _textBlock;
+            return null;
+        }
+
+        protected override Size MeasureOverride(Size constraint)
+        {
+            _textBlock.Measure(constraint);
+            return _textBlock.DesiredSize;
+        }
+
+        protected override Size ArrangeOverride(Size arrangeBounds)
+        {
+            _textBlock.Arrange(new Rect(new Point(0,0), arrangeBounds));
+            return _textBlock.DesiredSize;
+        }
+
+
         private static void ApplyHighlighting(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var tb = d as TextBlockWithHighlight;
@@ -77,37 +124,21 @@ namespace AquaExplorer.Controls
             string highlighted = HighlightedText;
             string text = Text;
 
-            Inlines.Clear();
+            _textBlock.Inlines.Clear();
 
-            bool noHighlight = String.IsNullOrEmpty(highlighted);
-            int index = noHighlight ? -1 : SubstringSearch.IndexOf(text, highlighted);
-
-            HasMatch = noHighlight || index >= 0;
-
-            if (index < 0) // highlighted text empty or not found
+            var segments = StringHighlighter.GetSegments(text, highlighted);
+            foreach (var segment in segments)
             {
-                Inlines.Add(text);
-                return;
-            }
+                var str = text.Substring(segment.Start, segment.End - segment.Start);
+                var run = new Run(str);
 
-            if (index > 0) // there is some text before the highlighted part
-            {
-                Inlines.Add(text.Substring(0, index));
-            }
-
-            // add the highlighted part
-            Inlines.Add(
-                new Run(text.Substring(index, highlighted.Length))
+                if (segment.IsHighlighted)
                 {
-                    Background = HighlightedBackground,
-                    Foreground = HighlightedForeground
-                });
+                    run.Background = HighlightedBackground;
+                    run.Foreground = HighlightedForeground;
+                }
 
-            int afterHighlightIdx = index + highlighted.Length; //move index to the end of the highlighted part
-
-            if (afterHighlightIdx < text.Length) // there is some text after highlight
-            {
-                Inlines.Add(text.Substring(afterHighlightIdx));
+                _textBlock.Inlines.Add(run);
             }
         }
     }
